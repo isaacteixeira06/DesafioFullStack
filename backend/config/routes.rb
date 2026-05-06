@@ -4,7 +4,9 @@ Rails.application.routes.draw do
       post 'auth/register', to: 'auth#register'
       post 'auth/login', to: 'auth#login'
 
-      resources :courses, only: [:index, :show, :create, :update, :destroy]
+      resources :courses, only: [:index, :show, :create, :update, :destroy] do
+        resources :lessons, only: [:index, :create, :update, :destroy]
+      end
     end
   end
 end
