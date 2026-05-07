@@ -14,15 +14,16 @@ module Api
 
       def show
         course = Course.includes(:creator, :lessons).find(params[:id])
+        ai_description = External::AiSuggestionService.call(course.name)
 
         render json: course.as_json(
-          only: [:id, :name, :description, :start_date, :end_date],
-          include: {
+            only: [:id, :name, :description, :start_date, :end_date],
+            include: {
             creator: { only: [:id, :name] },
             lessons: { only: [:id, :title, :status, :video_url] }
-          }
-        )
-      end
+            }
+        ).merge(ai_suggestion: ai_description)
+    end
 
       def create
         course = Courses::CreateCourse.new(course_params, current_user).call
