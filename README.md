@@ -133,13 +133,22 @@ docker compose exec -e RAILS_ENV=test -e DATABASE_URL=postgresql://postgres:post
 ---
 
 ## Arquitetura do backend
-app/
-├── controllers/api/v1/   → Controllers HTTP
-├── models/               → Entidades com validações
-├── services/             → Regras de negócio
-│   ├── auth/
-│   ├── courses/
-│   ├── lessons/
-│   └── external/         → Integração com APIs externas
-├── middlewares/          → JWT Authenticator (Rack)
-└── lib/errors/           → Erros customizados
+
+```
+DesafioFullStack/
+├── backend/
+│   ├── app/
+│   │   ├── controllers/api/v1/   → Controllers HTTP
+│   │   ├── models/               → Entidades com validações
+│   │   ├── services/             → Regras de negócio
+│   │   │   ├── auth/
+│   │   │   ├── courses/
+│   │   │   ├── lessons/
+│   │   │   └── external/         → Integração com APIs externas
+│   │   └── middlewares/          → JWT Authenticator (Rack)
+│   ├── lib/errors/               → Erros customizados
+│   ├── config/                   → Rotas, initializers, CORS
+│   ├── db/                       → Migrations e seeds
+│   └── spec/                     → Testes RSpec
+└── frontend/                     → Aplicação React (em desenvolvimento)
+```
