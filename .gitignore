@@ -1,0 +1,22 @@
+# Bundler
+backend/.bundle
+
+# Variáveis de ambiente
+.env
+.env.local
+.env.*.local
+
+# Logs e temporários
+backend/log/*
+backend/tmp/*
+!backend/log/.keep
+!backend/tmp/.keep
+
+# Pidfiles
+backend/tmp/pids/*
+!backend/tmp/pids/
+!backend/tmp/pids/.keep
+
+# Chaves de credenciais
+backend/config/*.key
+backend/config/master.key
