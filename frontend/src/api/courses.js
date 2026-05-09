@@ -5,7 +5,8 @@ const courses = {
   getById: (id) => client.get(`/api/v1/courses/${id}`),
   create: (data) => client.post('/api/v1/courses', { course: data }),
   update: (id, data) => client.patch(`/api/v1/courses/${id}`, { course: data }),
-  remove: (id) => client.delete(`/api/v1/courses/${id}`)
+  remove: (id) => client.delete(`/api/v1/courses/${id}`),
+  suggestDescription: (name) => client.post('/api/v1/courses/suggest_description', { name })
 }
 
 export default courses

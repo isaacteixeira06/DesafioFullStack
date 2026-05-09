@@ -5,6 +5,9 @@ Rails.application.routes.draw do
       post 'auth/login', to: 'auth#login'
 
       resources :courses, only: [:index, :show, :create, :update, :destroy] do
+        collection do
+          post :suggest_description
+        end
         resources :lessons, only: [:index, :create, :update, :destroy]
       end
     end

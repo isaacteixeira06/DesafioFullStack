@@ -48,6 +48,11 @@ module Api
         head :no_content
       end
 
+      def suggest_description
+        suggestion = External::AiSuggestionService.call(params[:name])
+        render json: { suggestion: suggestion }
+      end
+      
       private
 
       def course_params
