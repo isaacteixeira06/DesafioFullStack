@@ -35,7 +35,8 @@ export default function Navbar() {
           border: '1px solid #d1d5db',
           borderRadius: '0.375rem',
           cursor: 'pointer',
-          fontSize: '0.875rem'
+          fontSize: '0.875rem',
+          color: '#6b7280'
         }}>
           Sair
         </button>
