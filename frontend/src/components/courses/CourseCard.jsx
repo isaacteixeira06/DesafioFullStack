@@ -16,14 +16,16 @@ export default function CourseCard({ course, onDelete }) {
       flexDirection: 'column',
       gap: '0.5rem'
     }}>
-      <h3 style={{ margin: 0, fontSize: '1.125rem', fontWeight: '600' }}>{course.name}</h3>
+      <h3 style={{ margin: 0, fontSize: '1.125rem', fontWeight: '600', color: '#111827' }}>
+        {course.name}
+      </h3>
       {course.description && (
-        <p style={{ margin: 0, color: '#6b7280', fontSize: '0.875rem' }}>{course.description}</p>
+        <p style={{ margin: 0, color: '#4b5563', fontSize: '0.875rem' }}>{course.description}</p>
       )}
-      <p style={{ margin: 0, fontSize: '0.75rem', color: '#9ca3af' }}>
+      <p style={{ margin: 0, fontSize: '0.75rem', color: '#6b7280' }}>
         {course.start_date} → {course.end_date}
       </p>
-      <p style={{ margin: 0, fontSize: '0.75rem', color: '#9ca3af' }}>
+      <p style={{ margin: 0, fontSize: '0.75rem', color: '#6b7280' }}>
         Por {course.creator?.name}
       </p>
 

@@ -34,7 +34,7 @@ export default function DashboardPage() {
 
       <div style={{ maxWidth: '1024px', margin: '0 auto', padding: '2rem 1.5rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-          <h1 style={{ margin: 0, fontSize: '1.5rem', fontWeight: '700' }}>Meus Cursos</h1>
+          <h1 style={{ margin: 0, fontSize: '1.125rem', fontWeight: '600', color: '#111827' }}>Meus Cursos</h1>
           <button onClick={() => setShowForm(true)} style={{
             padding: '0.5rem 1.25rem',
             background: '#3b82f6',
