@@ -26,11 +26,12 @@ Aplicação web de gestão de cursos e aulas com backend em Rails API e frontend
 ## Estrutura do projeto
 DesafioFullStack/
 ├── backend/    → API Rails
-└── frontend/   → Aplicação React (em desenvolvimento)
+├── frontend/   → Aplicação React
+└── docker-compose.yml
 
 ---
 
-## Rodando o backend com Docker
+## Rodando com Docker
 
 ### Pré-requisitos
 - Docker
@@ -40,7 +41,7 @@ DesafioFullStack/
 
 ```bash
 git clone https://github.com/isaacteixeira06/DesafioFullStack.git
-cd DesafioFullStack/backend
+cd DesafioFullStack
 ```
 
 ### 2. Configure as variáveis de ambiente
@@ -65,7 +66,8 @@ GEMINI_API_KEY=sua_chave_gemini_aqui
 docker compose up --build
 ```
 
-A API estará disponível em `http://localhost:3000`.
+- Frontend: `http://localhost:5173`
+- API: `http://localhost:3000`
 
 ### 4. Popule o banco com dados de teste
 
@@ -98,6 +100,7 @@ docker compose exec api rails db:seed
 | GET | /api/v1/courses | Lista cursos | ✅ |
 | GET | /api/v1/courses/:id | Detalhe do curso + sugestão IA | ✅ |
 | POST | /api/v1/courses | Cria curso | ✅ |
+| POST | /api/v1/courses/suggest_description | Sugestão de descrição via IA | ✅ |
 | PATCH | /api/v1/courses/:id | Atualiza curso (apenas criador) | ✅ |
 | DELETE | /api/v1/courses/:id | Remove curso (apenas criador) | ✅ |
 
@@ -133,8 +136,6 @@ docker compose exec -e RAILS_ENV=test -e DATABASE_URL=postgresql://postgres:post
 ---
 
 ## Arquitetura do backend
-
-```
 DesafioFullStack/
 ├── backend/
 │   ├── app/
@@ -150,5 +151,11 @@ DesafioFullStack/
 │   ├── config/                   → Rotas, initializers, CORS
 │   ├── db/                       → Migrations e seeds
 │   └── spec/                     → Testes RSpec
-└── frontend/                     → Aplicação React (em desenvolvimento)
-```
+└── frontend/                     → Aplicação React
+├── src/
+│   ├── api/                  → Facade + funções de comunicação
+│   ├── components/           → Componentes reutilizáveis
+│   ├── context/              → AuthContext
+│   ├── hooks/                → useAuth, useCourses, useLessons
+│   └── pages/                → LoginPage, RegisterPage, Dashboard, CourseDetail
+└── Dockerfile
