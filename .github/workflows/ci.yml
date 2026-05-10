@@ -33,8 +33,11 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
-          bundler-cache: true
           working-directory: backend
+
+      - name: Install dependencies
+        working-directory: backend
+        run: bundle install
 
       - name: Run tests
         working-directory: backend
