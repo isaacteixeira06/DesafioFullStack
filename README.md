@@ -135,7 +135,7 @@ docker compose exec -e RAILS_ENV=test -e DATABASE_URL=postgresql://postgres:post
 
 ---
 
-## Arquitetura do backend
+## Arquitetura do Projeto
 DesafioFullStack/
 ├── backend/
 │   ├── app/
