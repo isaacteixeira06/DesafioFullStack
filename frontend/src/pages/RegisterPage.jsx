@@ -32,7 +32,7 @@ export default function RegisterPage() {
         width: '100%',
         maxWidth: '400px'
       }}>
-        <h1 style={{ marginBottom: '1.5rem', fontSize: '1.5rem', fontWeight: '600' }}>
+        <h1 style={{ marginBottom: '1.5rem', fontSize: '1.5rem', fontWeight: '600', color: '#111827' }}>
           Criar conta
         </h1>
 
