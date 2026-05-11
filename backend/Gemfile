@@ -19,6 +19,13 @@ gem "rack-cors"
 # HTTP para APIs externas
 gem "faraday"
 
+gem 'rswag-api'
+gem 'rswag-ui'
+
+group :development, :test do
+  gem 'rswag-specs'
+end
+
 group :development, :test do
   gem "debug", platforms: %i[mri windows]
   gem "rspec-rails"

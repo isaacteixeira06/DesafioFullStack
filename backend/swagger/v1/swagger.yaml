@@ -1,0 +1,370 @@
+openapi: 3.0.1
+info:
+  title: CourseSphere API
+  description: API para gestão de cursos e aulas online
+  version: v1
+
+servers:
+  - url: http://localhost:3000
+    description: Desenvolvimento local
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+
+    Course:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        creator:
+          $ref: '#/components/schemas/User'
+
+    Lesson:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        status:
+          type: string
+          enum: [draft, published]
+        video_url:
+          type: string
+
+paths:
+  /api/v1/auth/register:
+    post:
+      summary: Registra um novo usuário
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    email:
+                      type: string
+                    password:
+                      type: string
+                    password_confirmation:
+                      type: string
+      responses:
+        '201':
+          description: Usuário criado com sucesso
+        '422':
+          description: Dados inválidos
+
+  /api/v1/auth/login:
+    post:
+      summary: Autentica um usuário
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Login realizado com sucesso
+        '401':
+          description: Credenciais inválidas
+
+  /api/v1/courses:
+    get:
+      summary: Lista todos os cursos
+      tags:
+        - Courses
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de cursos
+        '401':
+          description: Não autorizado
+
+    post:
+      summary: Cria um novo curso
+      tags:
+        - Courses
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                course:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    start_date:
+                      type: string
+                      format: date
+                    end_date:
+                      type: string
+                      format: date
+      responses:
+        '201':
+          description: Curso criado com sucesso
+        '422':
+          description: Dados inválidos
+
+  /api/v1/courses/{id}:
+    get:
+      summary: Retorna detalhes de um curso
+      tags:
+        - Courses
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Detalhes do curso com sugestão de IA
+        '404':
+          description: Curso não encontrado
+
+    patch:
+      summary: Atualiza um curso
+      tags:
+        - Courses
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                course:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    description:
+                      type: string
+      responses:
+        '200':
+          description: Curso atualizado
+        '403':
+          description: Acesso negado
+
+    delete:
+      summary: Remove um curso
+      tags:
+        - Courses
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Curso removido
+        '403':
+          description: Acesso negado
+
+  /api/v1/courses/suggest_description:
+    post:
+      summary: Sugere uma descrição para o curso via IA
+      tags:
+        - Courses
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        '200':
+          description: Sugestão gerada com sucesso
+
+  /api/v1/courses/{course_id}/lessons:
+    get:
+      summary: Lista aulas de um curso
+      tags:
+        - Lessons
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: course_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [draft, published]
+      responses:
+        '200':
+          description: Lista de aulas
+
+    post:
+      summary: Cria uma nova aula
+      tags:
+        - Lessons
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: course_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                lesson:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    status:
+                      type: string
+                      enum: [draft, published]
+                    video_url:
+                      type: string
+      responses:
+        '201':
+          description: Aula criada
+        '403':
+          description: Acesso negado
+
+  /api/v1/courses/{course_id}/lessons/{id}:
+    patch:
+      summary: Atualiza uma aula
+      tags:
+        - Lessons
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: course_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                lesson:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    status:
+                      type: string
+                      enum: [draft, published]
+      responses:
+        '200':
+          description: Aula atualizada
+        '403':
+          description: Acesso negado
+
+    delete:
+      summary: Remove uma aula
+      tags:
+        - Lessons
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: course_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Aula removida
+        '403':
+          description: Acesso negado

@@ -9,6 +9,9 @@ class JwtAuthenticator
   end
 
   def call(env)
+
+    return @app.call(env) if env['PATH_INFO'].start_with?('/api-docs')
+    
     request = Rack::Request.new(env)
 
     if EXCLUDED_PATHS.include?(request.path)
