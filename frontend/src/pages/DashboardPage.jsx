@@ -56,7 +56,7 @@ export default function DashboardPage() {
             padding: '1.5rem',
             marginBottom: '1.5rem'
           }}>
-            <h2 style={{ margin: '0 0 1rem', fontSize: '1.125rem' }}>Novo Curso</h2>
+            <h2 style={{ margin: '0 0 1rem', fontSize: '1.125rem', color: '#111827' }}>Novo Curso</h2>
             <CourseForm onSubmit={handleCreate} onCancel={() => setShowForm(false)} />
           </div>
         )}

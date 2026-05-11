@@ -9,6 +9,8 @@ class ApplicationController < ActionController::API
   private
 
   def authenticate_user!
+    return if request.original_fullpath.include?('api-docs')
+
     user_id = request.env['current_user_id']
     @current_user = User.find_by(id: user_id)
     raise Errors::Unauthorized unless @current_user
