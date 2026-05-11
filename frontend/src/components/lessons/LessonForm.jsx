@@ -75,7 +75,8 @@ export default function LessonForm({ onSubmit, onCancel, initialData = {} }) {
           background: '#f3f4f6',
           border: '1px solid #d1d5db',
           borderRadius: '0.375rem',
-          cursor: 'pointer'
+          cursor: 'pointer',
+          color: '#374151'
         }}>
           Cancelar
         </button>
