@@ -8,7 +8,7 @@ Aplicação web de gestão de cursos e aulas online, com backend em Rails API e 
 
 | Serviço | URL |
 |---|---|
-| Aplicação | `https://sua-url-vercel.vercel.app` |
+| Aplicação | `https://www.coursesphere.tech` |
 | Documentação API (Swagger) | `https://desafiofullstack-production-4843.up.railway.app/api-docs/index.html` |
 
 
