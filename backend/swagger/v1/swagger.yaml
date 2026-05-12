@@ -5,8 +5,10 @@ info:
   version: v1
 
 servers:
+  - url: https://desafiofullstack-production-4843.up.railway.app
+    description: Produção (Railway)
   - url: http://localhost:3000
-    description: Desenvolvimento local
+    description: Desenvolvimento Local
 
 components:
   securitySchemes:
