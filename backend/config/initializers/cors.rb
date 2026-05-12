@@ -1,7 +1,7 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
     
-    origins 'https://profound-nourishment-production-7ec2.up.railway.app', 
+    origins 'https://www.coursesphere.tech', 
             'http://localhost:5173'
 
     resource '*',
